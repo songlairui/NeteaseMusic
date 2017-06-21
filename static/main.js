@@ -32,5 +32,5 @@ function searchEl(selector,target, pool){
 }
 
 function togglePlay(){
-  document.querySelector('.music-cover').classList.toggle('playing')
+  document.querySelector('.disc').classList.toggle('playing')
 }

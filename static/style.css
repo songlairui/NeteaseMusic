@@ -109,6 +109,33 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: rgba(255,255,255,.9);
+  /*z-index: 1;*/
+}
+.disc::before{
+  content: '';
+  position: absolute;
+  top: .32rem;left: .32rem;
+  width: .16rem;height: .16rem;
+  color: inherit;
+  border-radius: 50%;
+  border:medium solid currentColor;
+  z-index: 10;
+}
+.disc::after{
+  content: '';
+  position: absolute;
+  top: .36rem;left: .38rem;
+  width: 0;height: 0;
+  color: inherit;
+  border:.04rem solid transparent;
+  border-left:.06rem solid currentColor;
+  border-right: none;
+  z-index: 10;
+}
+.disc.playing::before,
+.disc.playing::after{
+  border: none;
 }
 
 
@@ -124,7 +151,7 @@ body {
   animation-play-state: paused;
 }
 
-.music-cover.playing {
+.playing .music-cover {
   animation-play-state: running;
 }
 
@@ -136,6 +163,7 @@ body {
   width: .8rem;
   height: .8rem;
   top:-.15rem;left:-.15rem;
+  /*z-index: 10;*/
   /*background: red;*/
 }
 img {
@@ -164,7 +192,7 @@ img {
   flex: 0 0 5em;
   font-size: .04rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 .btn{
@@ -181,4 +209,5 @@ img {
   /*border:thin solid white;*/
   background: #d43b32;
   color: white;
+  margin-left: .04rem;
 }
