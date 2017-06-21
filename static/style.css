@@ -1,0 +1,184 @@
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+p,
+dl,
+dt,
+dd,
+ul,
+li,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-size: 16px;
+  background: snow;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+/* layout */
+
+#app {
+  /*width: 100%;*/
+  /*background: white;*/
+  box-shadow: 0 0 10px -2px rgba(0, 0, 0, .6);
+  min-height: 100%;
+  height: 1.7rem;
+  /*max-height: 600px;*/
+  width: 100%;
+  max-width: 640px;
+  /*margin: 1em 0;*/
+  border-radius: 2px;
+  /*border:thin solid yellow;*/
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+
+
+/* 背景 */
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("http://music.163.com/api/img/blur/18365142719501407");
+  background-size: cover;
+  opacity: 1;
+  z-index: -1;
+}
+
+.bg::after {
+  content: '';
+  background: rgba(0, 0, 0, .04);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.thumb {
+  /*flex: 1 0 100%;*/
+  display: flex;
+  justify-content: center;
+  padding-top: .16rem;
+}
+
+.thumb::after {
+  position: absolute;
+  content: '';
+  width: .256rem;
+  height: .36rem;
+  top: 0;
+  left: 50%;
+  background: url(//s3.music.126.net/m/s/img/needle-ip6.png?be4ebbeb6befadfcae75ce174e7db862)no-repeat;
+  background-size: contain;
+}
+
+.disc {
+  background: url(https://s3.music.126.net/m/s/img/disc-ip6.png?69796123ad7cfe95781ea38aac8f2d48) no-repeat;
+  background-size: cover;
+  width: .8rem;
+  height: .8rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+
+/* music-cover */
+
+.music-cover {
+  width: .5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  /*z-index: -1;*/
+  animation: rotating 10s linear 0s infinite;
+  animation-play-state: paused;
+}
+
+.music-cover.playing {
+  animation-play-state: running;
+}
+
+.music-cover::after {
+  content: '';
+  background: url(https://s3.music.126.net/m/s/img/disc_light-ip6.png?996fc8a2bc62e1ab3f51f135fc459577) no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: .8rem;
+  height: .8rem;
+  top:-.15rem;left:-.15rem;
+  /*background: red;*/
+}
+img {
+  max-width: 100%;
+}
+
+
+/* disc 旋转 */
+
+@keyframes rotating {
+  from {
+    transform: rotate(0)
+  }
+  to {
+    transform: rotate(1turn)
+  }
+}
+
+/* meta 部分 */
+.meta{
+  flex: 1;
+}
+
+/* 底部 button */
+.footer{
+  flex: 0 0 5em;
+  font-size: .04rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:medium solid #d43b32;
+  color: #d43b32;
+  border-radius: .01rem;
+  height: .096rem;
+  width: .4rem;
+}
+.btn.active{
+  /*border:thin solid white;*/
+  background: #d43b32;
+  color: white;
+}
