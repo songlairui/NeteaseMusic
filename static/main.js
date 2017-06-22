@@ -1,4 +1,5 @@
-let mp3Url = 'http://118.193.228.119/tmpfile/zhanzhengshijie.mp3'
+let mp3Url = 'http://118.193.228.119/tmpfile/yezi-live.mp3'
+// let mp3Url = './野子 (Live).mp3'
 let lrc = []
 let audio = document.createElement('audio')
 audio.src = mp3Url
@@ -6,8 +7,14 @@ audio.ok = false
 audio.oncanplay = function() {
   audio.ok = true
 }
+audio.ontimeupdate = function() {
+  // console.info('playing at: ' + audio.currentTime)
+  activeLrc()
+}
+
 window.addEventListener('resize', function() {
   console.info('resize')
+  // 节流函数？
   setHtmlRem()
 })
 document.addEventListener('DOMContentLoaded', function() {
@@ -72,4 +79,27 @@ function loadLrc() {
       }, '')
       document.querySelector('.lyric ul').appendChild(oFrag)
     })
+}
+
+function activeLrc() {
+  let currentStamp = audio.currentTime
+    // let lrcTimePool = 
+  let current = lrc.filter(v => v[0]).reverse().filter(v => {
+    let tmp = v[0].split(':')
+    let stamp = +tmp[0] * 60 + tmp[1]
+    return stamp < currentStamp
+  })[0]
+
+  let lrcEl = document.querySelector('.lyric ul')
+  let target = lrcEl.querySelector(`[data-stamp='${current?current[0]:'00:00.00'}']`)
+    // 所有元素移除 .current
+  let currentActive = [].filter.call(lrcEl.querySelectorAll('li'), el => el.matches('.current'))
+
+  if (target && currentActive.indexOf(target) === -1) {
+    currentActive.forEach(el => el.classList.remove('current'))
+
+    target.classList.add('current')
+    lrcEl.style.transform = `translateY(${- target.offsetTop + 2 * target.offsetHeight}px)`
+
+  }
 }
