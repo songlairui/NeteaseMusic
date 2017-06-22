@@ -1,7 +1,8 @@
 let mp3Url = 'http://118.193.228.119/tmpfile/yezi-live.mp3'
-// let mp3Url = './野子 (Live).mp3'
+  // let mp3Url = './野子 (Live).mp3'
 let lrc = []
 let audio = document.createElement('audio')
+audio.style.display = 'none'
 audio.src = mp3Url
 audio.ok = false
 audio.oncanplay = function() {
@@ -14,12 +15,16 @@ audio.ontimeupdate = function() {
 
 window.addEventListener('resize', function() {
   console.info('resize')
-  // 节流函数？
+    // 节流函数？
   setHtmlRem()
 })
 document.addEventListener('DOMContentLoaded', function() {
   setHtmlRem()
   loadLrc()
+  // alert(`${window.devicePixelRatio}、${document.documentElement.clientWidth}`)
+  // let tip = document.createElement('div')
+  // tip.textContent = `${window.devicePixelRatio}、${document.documentElement.clientWidth}`
+  // document.documentElement.appendChild(tip)
 })
 
 document.addEventListener('click', function(e) {
@@ -86,20 +91,22 @@ function activeLrc() {
     // let lrcTimePool = 
   let current = lrc.filter(v => v[0]).reverse().filter(v => {
     let tmp = v[0].split(':')
-    let stamp = +tmp[0] * 60 + tmp[1]
+      // 修复计算错误，添加括号，优先进行隐式类型转换
+    let stamp = +tmp[0] * 60 + (+tmp[1])
     return stamp < currentStamp
   })[0]
 
   let lrcEl = document.querySelector('.lyric ul')
   let target = lrcEl.querySelector(`[data-stamp='${current?current[0]:'00:00.00'}']`)
-    // 所有元素移除 .current
   let currentActive = [].filter.call(lrcEl.querySelectorAll('li'), el => el.matches('.current'))
 
+  // 当能获取到target，并且处于正在激活状态的dom元素中不包含target时，才进行更改dom的操作  
+  // onTimeUpdate 时间频次较高，做这样的处理，能够避免过多的dom操作。
   if (target && currentActive.indexOf(target) === -1) {
+    // 所有元素移除 .current
     currentActive.forEach(el => el.classList.remove('current'))
 
     target.classList.add('current')
     lrcEl.style.transform = `translateY(${- target.offsetTop + 2 * target.offsetHeight}px)`
-
   }
 }
