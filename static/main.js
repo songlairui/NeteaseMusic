@@ -1,18 +1,31 @@
 // let mp3Url = 'http://118.193.228.119/tmpfile/yezi-live.mp3'
-// let mp3Url = './野子 (Live).mp3'
-let mp3Url = 'https://og1zqhijc.qnssl.com/tmp/file/yezi-live.mp3'
+let mp3Url = './野子 (Live).mp3'
+  // let mp3Url = 'https://og1zqhijc.qnssl.com/tmp/file/yezi-live.mp3'
 let lrc = []
 let audio = document.createElement('audio')
 audio.style.display = 'none'
 audio.src = mp3Url
 audio.ok = false
+audio.playbackRate = 30
+  //  音频可以播放时，标示变量变为true
 audio.oncanplay = function() {
-  audio.ok = true
-}
+    audio.ok = true
+  }
+  // 音频播放过程中，跟随进度激活歌词
 audio.ontimeupdate = function() {
-  // console.info('playing at: ' + audio.currentTime)
-  activeLrc()
+    console.info('playing at: ' + audio.currentTime)
+    activeLrc()
+  }
+  // 音频播放完成，不再旋转
+audio.onended = function endPlay() {
+  togglePlay(false)
+  let lrcEl = document.querySelector('.lyric ul')
+  lrcEl.style.display = 'none'
+  lrcEl.style.transform = 'translateY(0px)'
+  void lrcEl.clientWidth
+  lrcEl.style.display = 'flex'
 }
+
 
 window.addEventListener('resize', function() {
   console.info('resize')
@@ -22,10 +35,10 @@ window.addEventListener('resize', function() {
 document.addEventListener('DOMContentLoaded', function() {
   setHtmlRem()
   loadLrc()
-  // alert(`${window.devicePixelRatio}、${document.documentElement.clientWidth}`)
-  // let tip = document.createElement('div')
-  // tip.textContent = `${window.devicePixelRatio}、${document.documentElement.clientWidth}`
-  // document.documentElement.appendChild(tip)
+    // alert(`${window.devicePixelRatio}、${document.documentElement.clientWidth}`)
+    // let tip = document.createElement('div')
+    // tip.textContent = `${window.devicePixelRatio}、${document.documentElement.clientWidth}`
+    // document.documentElement.appendChild(tip)
 })
 
 document.addEventListener('click', function(e) {
@@ -54,10 +67,15 @@ function searchEl(selector, target, pool) {
   return el
 }
 
-function togglePlay() {
+function togglePlay(option) {
   if (audio.ok) {
-    document.querySelector('.disc').classList.toggle('playing')
-    audio.paused ? audio.play() : audio.pause()
+    let el = document.querySelector('.disc');
+    (
+      typeof option !== 'undefined' ?
+      option :
+      audio.paused
+    ) ?
+    (el.classList.add('playing'), audio.play()) : (el.classList.remove('playing'), audio.pause())
   }
 }
 
