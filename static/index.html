@@ -32,6 +32,31 @@
       <div class="btn active download">下载</div>
     </div>
   </div>
+  <div class="external">
+    播放速度:
+    <input type="radio" name="playRate" id="playRate1" value="1.0" checked='checked'>
+    <label for="playRate1">x1</label>
+    <input type="radio" name="playRate" id="playRate3" value="3.0">
+    <label for="playRate3">x3</label>
+    <input type="radio" name="playRate" id="playRate10" value="10">
+    <label for="playRate10">x10</label>
+    <input type="radio" name="playRate" id="playRate30" value="30">
+    <label for="playRate30">x30</label><br>
+    <span style="color:navy;"><small>4倍速以上自动静音</small></span>
+    <hr> 歌词策略: 
+    <input type="radio" name="lrcFunc" id="lrcFuncO" value="ontimeupdate">
+    <label for="lrcFuncO">onTimeUpdate</label>
+    <input type="radio" name="lrcFunc" id="lrcFuncS" value="settimeout" checked='checked'>
+    <label for="lrcFuncS">SetTimeout迭代</label>
+    <blockquote>
+      <p style="color:red">播放时，可切换播放速度、歌词策略。</p>
+      <ul>
+        <li>30倍速，onTimeUpdate-漏歌词</li>
+        <li>30倍速，迭代-每一个歌词都能播放到。</li>
+        <li>//TODO 使用缓存变量，减少去active的计算</li>
+      </ul>
+    </blockquote>
+  </div>
   <script src="./main.js"></script>
 </body>
 

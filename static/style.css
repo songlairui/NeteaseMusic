@@ -6,10 +6,13 @@
 *::after {
   box-sizing: border-box;
 }
-html::before,html::after{
+
+html::before,
+html::after {
   content: '';
   background: red
 }
+
 html,
 body,
 h1,
@@ -26,14 +29,15 @@ ol {
   padding: 0;
 }
 
-html{
+html {
   /*height: 100%;*/
   display: flex;
   flex-flow: column;
   /*border: thin solid greenyellow;*/
 }
+
 body {
-  flex:1;
+  flex: 1;
   /*border:1px solid red;*/
   height: 100%;
   min-height: 100%;
@@ -119,35 +123,41 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: rgba(255,255,255,.9);
+  color: rgba(255, 255, 255, .9);
   /*z-index: 1;*/
 }
-.disc::before{
+
+.disc::before {
   content: '';
   position: absolute;
-  top: .32rem;left: .32rem;
-  width: .16rem;height: .16rem;
+  top: .32rem;
+  left: .32rem;
+  width: .16rem;
+  height: .16rem;
   color: inherit;
   border-radius: 50%;
-  border:medium solid currentColor;
+  border: medium solid currentColor;
   z-index: 10;
 }
-.disc::after{
+
+.disc::after {
   content: '';
   position: absolute;
-  top: .36rem;left: .38rem;
-  width: 0;height: 0;
+  top: .36rem;
+  left: .38rem;
+  width: 0;
+  height: 0;
   color: inherit;
-  border:.04rem solid transparent;
-  border-left:.06rem solid currentColor;
+  border: .04rem solid transparent;
+  border-left: .06rem solid currentColor;
   border-right: none;
   z-index: 10;
 }
+
 .disc.playing::before,
-.disc.playing::after{
+.disc.playing::after {
   border: none;
 }
-
 
 
 /* music-cover */
@@ -171,10 +181,12 @@ body {
   position: absolute;
   width: .8rem;
   height: .8rem;
-  top:-.15rem;left:-.15rem;
+  top: -.15rem;
+  left: -.15rem;
   /*z-index: 10;*/
   /*background: red;*/
 }
+
 img {
   border-radius: 50%;
   width: .5rem;
@@ -195,8 +207,10 @@ img {
   }
 }
 
+
 /* meta 部分 */
-.meta{
+
+.meta {
   flex: 1;
   justify-content: center;
   align-items: center;
@@ -207,16 +221,16 @@ img {
 
 /* 歌词样式 */
 
-.lyric{
-  flex:0 0 10em;
+.lyric {
+  flex: 0 0 10em;
   overflow: hidden;
   width: .9rem;
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, .7);
   position: relative;
   /*text-shadow: 0 1px 2px rgba(0, 0, 0, .6);*/
 }
 
-.lyric ul{
+.lyric ul {
   display: flex;
   flex-flow: column;
   width: 100%;
@@ -232,38 +246,76 @@ img {
   white-space: pre-wrap;
   transition: color .4s;
 }
-.lyric ul>li::after{
+
+.lyric ul>li::after {
   content: '';
 }
-.lyric ul>li.current{
+
+.lyric ul>li.current {
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
 }
 
 
-
 /* 底部 button */
-.footer{
+
+.footer {
   flex: 0 0 5em;
   font-size: .04rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.btn{
+
+.btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  border:medium solid #d43b32;
+  border: medium solid #d43b32;
   color: #d43b32;
   border-radius: .01rem;
   height: .096rem;
   width: .4rem;
   cursor: pointer;
 }
-.btn.active{
+
+.btn.active {
   /*border:thin solid white;*/
   background: #d43b32;
   color: white;
   margin-left: .04rem;
+}
+
+
+/* external */
+
+.external {
+  position: absolute;
+  width: 100%;
+  background: rgba(255, 255, 255, .3);
+  padding: .5em;
+}
+
+.external hr {
+  border: thin solid rgba(255, 255, 255, .3);
+}
+
+.external label {
+  cursor: pointer;
+}
+
+.external input[type='radio'] {
+  background: rgba(255, 255, 255, .3);
+  border: thin solid white;
+  /*width: 6em;*/
+  padding: .3em;
+  cursor: pointer;
+}
+
+.external blockquote {
+  margin: 0;
+  padding: 0 1.5em;
+  line-height: 1.2em;
+  text-shadow: 0 0px 2px white;
+  background: rgba(255, 255, 255, .7);
 }
