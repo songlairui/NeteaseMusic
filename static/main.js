@@ -1,6 +1,6 @@
 // let mp3Url = 'http://118.193.228.119/tmpfile/yezi-live.mp3'
-let mp3Url = './野子 (Live).mp3'
-  // let mp3Url = 'https://og1zqhijc.qnssl.com/tmp/file/yezi-live.mp3'
+// let mp3Url = './野子 (Live).mp3'
+let mp3Url = 'https://og1zqhijc.qnssl.com/tmp/file/yezi-live.mp3'
 let lrc = []
 let audio = document.createElement('audio')
 audio.style.display = 'none'
