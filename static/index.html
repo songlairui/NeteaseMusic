@@ -41,20 +41,22 @@
     <input type="radio" name="playRate" id="playRate10" value="10">
     <label for="playRate10">x10</label>
     <input type="radio" name="playRate" id="playRate30" value="30">
-    <label for="playRate30">x30</label><br>
-    <span style="color:navy;"><small>4倍速以上自动静音</small></span>
-    <hr> 歌词策略: 
+    <label for="playRate30">x30</label>
+    <span class="tip" style="color:red;"><br><small>x4以上自动静音</small></span>
+    <hr> 歌词策略:
     <input type="radio" name="lrcFunc" id="lrcFuncO" value="ontimeupdate">
     <label for="lrcFuncO">onTimeUpdate</label>
     <input type="radio" name="lrcFunc" id="lrcFuncS" value="settimeout" checked='checked'>
     <label for="lrcFuncS">SetTimeout迭代</label>
     <blockquote>
-      <p style="color:red">播放时，可切换播放速度、歌词策略。</p>
+      <p style="color:red">播放时，可切换播放速度、歌词策略。
+        <span class="tip"><br>打开控制台看log</span>
+      </p>
       <ul>
         <li>30倍速，onTimeUpdate-漏歌词</li>
-        <li>30倍速，迭代-每一个歌词都能播放到。</li>
-        <li>//TODO 使用缓存变量，减少去active的计算</li>
+        <li>30倍速，迭代-每一个歌词都能激活到</li>
       </ul>
+      <span class="tip" style="color:red;">30倍速时，setTimeout事件会因为误差，快于实际需要操作DOM的频次。使用缓存进行了避免</span>
     </blockquote>
   </div>
   <script src="./main.js"></script>

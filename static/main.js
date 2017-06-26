@@ -52,7 +52,7 @@ document.addEventListener('click', function(e) {
 function setHtmlRem() {
   // document.documentElement.setAttribute('dpr') = window.devicePixelRatio
   let scale = document.querySelector('#app').clientWidth / 375
-  console.info(scale)
+    // console.info(scale)
   document.documentElement.style.fontSize = `${375 * scale}px`
 }
 /**
@@ -125,9 +125,10 @@ function setAudioOntimeupdateFunc() {
  * 设置 settimeout 序列，即启动playLrc(). 同时，切换不同速率的情况
  */
 function setSettimeoutQueue() {
-  console.info('设置settimeout序列')
-  clearTimeout(timer), timer = null
-  lrcFunc === 'settimeout' ? playLrc() : null
+  clearTimeout(timer)
+  timer = null
+    // 丧病的使用三元操作符
+  lrcFunc === 'settimeout' ? (console.info('设置settimeout序列'), playLrc()) : null
 }
 
 /**
@@ -138,12 +139,12 @@ function updateLrc() {
   let currentStamp = audio.currentTime
     // filter需要的方法做成辅助函数，使用省略大括号的形式，代码变得太简洁了
     // 此处 负向获取，因为要立即设为激活状态，所以需要取的是最后一个正在播放的歌词
-  let lastLrcArr = lrc.filter(v => v[0])
+  let lastLrc = lrc.filter(v => v[0])
     .reverse()
     .filter(v => lrcTime2Second(v[0]) < currentStamp)[0]
 
-  if (lastLrcArr) {
-    activeLrcItem(lastLrcArr[0])
+  if (lastLrc) {
+    activeLrcItem(lastLrc[0])
   }
 }
 /**
@@ -166,14 +167,17 @@ function playLrc() {
       // 修复计算错误，添加括号，优先进行隐式类型转换
     let stamp = +tmp[0] * 60 + (+tmp[1])
     return stamp > currentStamp
-  })[0][0]
-  console.info(`下一歌词时间： ${nextLrc}`)
-  timer = setTimeout(function() {
-    clearTimeout(timer)
-    timer = null
-    activeLrcItem(nextLrc)
-    playLrc()
-  }, (lrcTime2Second(nextLrc) - (+currentStamp)) * 1000 / audio.playbackRate)
+  })[0]
+
+  if (nextLrc) {
+    console.info(`下一歌词:${nextLrc}`)
+    timer = setTimeout(function() {
+      clearTimeout(timer)
+      timer = null
+      activeLrcItem(nextLrc[0])
+      playLrc() // 尾调用自身
+    }, (lrcTime2Second(nextLrc[0]) - (+currentStamp)) * 1000 / audio.playbackRate)
+  }
 }
 
 /**
@@ -187,13 +191,14 @@ function activeLrcItem(targetLrcTime) {
   // 当能获取到target，并且处于正在激活状态的dom元素中不包含target时，才进行更改dom的操作  
   // onTimeUpdate 时间频次较高，做这样的处理，能够避免过多的dom操作。
   if (target && !activedLrcEl.has(target)) {
+    console.info('操作DOM，更改激活状态')
     activedLrcEl.forEach(el => {
       el.classList.remove('current')
       activedLrcEl.delete(el)
     })
     target.classList.add('current')
     activedLrcEl.add(target)
-    // 令激活的歌词，位于第三行位置
+      // 令激活的歌词，位于第三行位置
     lrcEl.style.transform = `translateY(${- target.offsetTop + 2 * target.offsetHeight}px)`
   }
 }

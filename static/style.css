@@ -294,14 +294,21 @@ img {
   width: 100%;
   background: rgba(255, 255, 255, .3);
   padding: .5em;
+  font-size: .8em;
 }
-
+.external .tip{
+  display: none;
+}
+.external:hover .tip{
+  display: inline
+}
 .external hr {
   border: thin solid rgba(255, 255, 255, .3);
 }
 
 .external label {
   cursor: pointer;
+  background: rgba(255, 255, 255, .7);
 }
 
 .external input[type='radio'] {
